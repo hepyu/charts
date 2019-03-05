@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: default  #必须和grafana-svc是同一个namespace
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: test.grafana.top
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: alliterating-whale-grafana  #grafana的service的name
+          servicePort: 80
